@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import userRouter from './routes/user.routes.js'
 import authRouter from "./routes/auth.routes.js"
+import listingRouter from './routes/listing.routes.js'
+import cookieParser from "cookie-parser";
 
 mongoose.connect("mongodb://localhost:27017/Joshi_Estate").then(() => {
  console.log("connected to mongoDB")
@@ -12,6 +14,7 @@ mongoose.connect("mongodb://localhost:27017/Joshi_Estate").then(() => {
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 app.listen(3000, () => {
  console.log("server is running on port 3000!")
@@ -19,6 +22,7 @@ app.listen(3000, () => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use('/api/listing' , listingRouter )
 
 
 //Middleware for catching error and showinf them as we dont want to use try catch block for every api call
